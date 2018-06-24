@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>grid布局</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    
+    .container {
+      min-width: 300px;
+      display: grid;
+      grid-template-columns: 100px 200px auto; 
+      grid-template-rows: 200px;
+    }
+
+    .left {
+      background: aquamarine;
+    }
+
+    .mid {
+      background: darkmagenta;
+    }
+
+    .right {
+      background: darkcyan;
+    }
+  </style>
+</head>
+<body>
+  <section class="container">
+    <div class="left">left定</div>
+    <div class="mid">middle定</div>
+    <div class="right">右边自适应</div>
+  </section>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DOM 捕获事件</title>
+</head>
+<body>
+  <div class="" id="ev">
+    <style>
+      #ev {
+        width: 300px;
+        height: 100px;
+        background: darkolivegreen;
+        color: #fff;
+        text-align: center;
+        line-height: 100px;
+      }
+    </style>
+    目标元素
+  </div>
+
+  <script>
+    var ev = document.querySelector('#ev');
+
+    window.addEventListener('click', () => {
+      console.log('window captrue');
+    }, true);
+
+    document.addEventListener('click', () => {
+      console.log('document captrue');
+    }, true);
+
+    // html 的事件监听
+    document.documentElement.addEventListener('click', () => {
+      console.log('html captrue');
+    }, true);
+
+    document.body.addEventListener('click', () => {
+      console.log('body captrue');      
+    }, true);
+
+    ev.addEventListener('click', () => {
+      console.log('ev captrue');
+    }, true);
+
+    /** 打印结果如下，修改上面代码的顺序，结果还是一样的
+     *  window captrue
+     *  document captrue
+     *  html captrue
+     *  body captrue
+     *  ev captrue
+     */
+
+    /**
+    * 自定义事件 不支持IE
+    */
+    var custom = new Event('custom');
+    ev.addEventListener('click', () => console.log('test Event dispatch'));
+    // ev.dispatchEvent(eve);
+    setTimeout(() => ev.dispatchEvent(custom), 1000);
+
+    var custom2 = new CustomEvent('custom2', {
+      "detail" : {
+        age: 18
+      },
+      // "bubbles": true
+    });
+    document.addEventListener('custom2', (e) => console.log(e));
+    ev.addEventListener('click', () => document.dispatchEvent(custom2));
+  </script>
+</body>
+</html>

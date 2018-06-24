@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>数组去重</title>
+</head>
+<body>
+  <script>
+    var arr = [1, 2, 3, 2, 5, 6, 6, 6];
+    
+    // es6 Set()
+    var a = new Set(arr);  // Set(5) {1, 2, 3, 5, 6}
+    console.log(Array.from(a));  // [1, 2, 3, 5, 6]
+
+    // push1
+    var arr2 = [];
+    for(var i = 0; i < arr.length; i++) {
+      // indexOf 不包含某个值 就返回-1
+      if(arr2.indexOf(arr[i]) == -1) {
+        arr2.push(arr[i]);
+      }
+    }
+    console.log(arr2);
+
+    // push2
+    var arr3 = [arr[0]];
+    for(var i = 1; i < arr.length; i++) {
+      if(arr.indexOf(arr[i]) == i) {
+        arr3.push(arr[i]);
+      }
+    }
+    console.log(arr3);
+
+    // 排序去除相邻重复元素
+    var arrSort = arr.sort();  // [1, 2, 2, 3, 5, 6, 6, 6]
+    var arr4 = [];
+    for(let i = 0; i < arr.length; i++) {
+      if(arr[i] != arr[i+1]) {
+        arr4.push(arr[i]);
+      }
+    }
+    console.log(arr4);
+
+    // 使用splice
+    var len = arr.length;
+    for(let i = 0; i < len; i++) {
+      for(let j = i+1; j < len; j++) {
+        if(arr[i] === arr[j]) {
+          arr.splice(i, 1);
+          len--;
+          j--;
+        }
+      }
+    }
+    console.log(arr);
+  </script>
+</body>
+</html>

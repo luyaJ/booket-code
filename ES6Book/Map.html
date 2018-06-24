@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div class="myDiv"></div>
+
+  <script>
+    const m = new Map();
+    const o = {
+      p: 'hello world'
+    };
+    m.set(o, 'content');
+    m.get(o);   // "content"
+    m.has(o);   // true
+    m.delete(o);   // false
+
+    /**
+    * 作为构造函数，Map可以接受一个数组作为参数。该数组的成员是一个个表示键值对的数组
+    */
+    const map = new Map([
+      ['name', '张三'],
+      ['title', 'Author']
+    ]);
+    map.size;   // 2
+    map.has('name');   // true
+    map.get('name');   // "张三"
+
+    const set = new Set([
+      ['foo', 1],
+      ['bar', 2]
+    ]);
+    const m1 = new Map(set);
+    m1.get('foo');   // 1
+
+    const m2 = new Map([['baz', 3]]);
+    const m3 = new Map(m2);
+    m3.get('baz');   // 3
+
+    /**
+    * 多次赋值，后面的值覆盖前面的值
+    */ 
+    const map1 = new Map();
+    map1
+      .set(1, 'aaa')
+      .set(1, 'bbb');
+    map1.get(1);   // "bbb"
+
+    /**
+    * Map的键实际上是跟内存地址绑定的，只要内存地址不一样，
+    * 就视为两个键。这就解决了同名属性碰撞的问题。
+    */
+    let map2 = new Map();
+    map2.set(-0, 123);   // Map(1) {0 => 123}
+    map2.get(+0);   // 123
+
+    map2.set(true, 1);   // Map(2) {0 => 123, true => 1}
+    map2.set('true', 2);   // Map(3) {0 => 123, true => 1, "true" => 2}
+    map2.get(true);   // 1
+
+    map2.set(undefined, 3);   //  Map(4) {0 => 123, true => 1, "true" => 2, undefined => 3}
+    map2.set(null, 4);   // Map(5) {0 => 123, true => 1, "true" => 2, undefined => 3, null => 4}
+    map2.get(undefined);   // 3
+
+    map2.set(NaN, 123);   // Map(6) {0 => 123, true => 1, "true" => 2, undefined => 3, null => 4, NaN => 123}
+    map2.get(NaN);   // 123
+
+    /**
+    * Map属性: size/set(key, value)/get(key)/has(key)/delete(key)/clear()
+    * Map遍历方法: keys()/values()/entries()/forEach()
+    */
+  </script>
+</body>
+</html>

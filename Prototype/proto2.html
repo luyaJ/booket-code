@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>prototype</title>
+</head>
+<body>
+  <script>
+    // 第1种方法：字面量
+    var obj1 = { name: 'obj1' };   
+    var obj2 = new Object({ name: 'obj2' });  
+
+    // 第2种方法：构造函数
+    var Fn = function(name) { this.name = name; }
+    var obj3 = new Fn('obj3');                      
+
+    // 第3种方法：Object.create
+    var P = { name: 'p' };
+    var obj4 = Object.create(P);
+
+    // 原型继承
+    Fn.prototype.say = function() {
+      console.log('say hi');
+    }
+    var obj5 = new Fn();
+
+    // new 
+    var new3 = function(func) {
+      var o = Object.create(func.prototype);
+      var k = func.call(o);
+      if(typeof k === 'object') {
+        return k;
+      } else {
+        return o;
+      }
+    }
+  </script>
+</body>
+</html>

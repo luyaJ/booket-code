@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>浮动</title>
+</head>
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .container > div {
+    height: 200px;
+  }
+
+  .left {
+    background: darkcyan;
+    width: 100px;
+    float: left;
+  }
+
+  .mid {
+    background: crimson;
+    margin: 0 200px 0 100px;  /* 解决与左右两边重叠的问题 */
+  }
+
+  .right {
+    background: burlywood;
+    width: 200px;
+    float: right;
+  }
+</style>
+<body>
+  <article class="container">
+    <div class="left">left</div>
+    <div class="right">right</div>
+    <div class="mid">middle 使用浮动解决</div>
+  </article>
+</body>
+</html>

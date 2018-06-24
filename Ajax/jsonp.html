@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>AJAX跨域请求 -- JSONP实例</title>
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+  <button id="button">获取 最近上映电影</button>
+  <div id="movies"></div>
+
+  <script>
+    document.getElementById('button').addEventListener('click', load);
+    
+    function load() {
+      var output = '';
+
+      $.ajax({
+        type: "get",
+        async: false,
+        url: "http://api.douban.com/v2/movie/in_theaters",
+        dataType: "jsonp",
+        jsonp: "callback",
+        success: function (data) {
+          var sub = data.subjects;
+          for(var i in sub) {
+            output += `
+              <ul>
+                <li>电影名：${sub[i].title}</li>
+              </ul>
+            `;
+          }
+          document.getElementById('movies').innerHTML = output;
+        },
+        error: function(e) {
+          console.log('error');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

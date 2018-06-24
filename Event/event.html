@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DOM Event && IE Event</title>
+</head>
+<body>
+  <div>hello</div>
+  <div>world</div>
+
+  <script>
+    // 检测是否支持DOM Model
+    if(document.addEventListener) {
+      // 使用DOM Model创建绑定函数
+      this.addEvent = function (elem, type, fn) {
+        elem.addEventListener(type, fn, false);
+        return fn;
+      };
+      // 使用DOM Model创建解绑函数
+      this.removeEvent = function (elem, type, fn) {
+        elem.removeEventListener(type, fn, false);
+      };
+
+    // 检测是否支持IE Model 
+    } else if (document.attachEvent) {
+      // 使用IE Model创建绑定函数
+      this.addEvent = function (elem, type, fn) {
+        var bound = function() {
+          return fn.apply(elem, arguments); // 强制将上下文设置为目标元素
+        };
+        elem.attachEvent('on' + type, bound);
+        return bound;
+      };
+      // 使用IE Model创建解绑函数
+      this.removeEvent = function(elem, type, fn) {
+        elem.detachEvent('on' + type, fn);
+      };
+    }
+
+ 
+    // test
+    addEvent(window, 'load', function() {
+      var elems = document.getElementsByTagName('div');
+
+      for(var i = 0; i < elems.length; i++) (function (elem) {
+        var handler = addEvent(elem, 'click', function() {
+          this.style.backgroundColor = this.style.backgroundColor == '' ? 'green' : '';
+          removeEvent(elem, 'click', handler);
+        });
+      })(elems[i]);
+    });
+  </script>
+</body>
+</html>
