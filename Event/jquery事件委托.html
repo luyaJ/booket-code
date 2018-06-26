@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>jquery 事件委托</title>
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+  <ul id="list1" style="border: 1px solid black;">
+    <li>note1</li>
+    <li>note2</li>
+    <li>note3</li>
+    <li>note4</li>
+    <li>note5</li>
+  </ul>
+
+  <ul id="list2" style="border: 1px solid black;">
+    <li>note1</li>
+    <li>note2</li>
+    <li>note3</li>
+    <li>note4</li>
+    <li>note5</li>
+  </ul>
+
+  <ul id="list3" style="border: 1px solid black;">
+    <li>note1</li>
+    <li>note2</li>
+    <li>note3</li>
+    <li>note4</li>
+    <li>note5</li>
+  </ul>
+
+  <ul id="list4" style="border: 1px solid black;">
+    <li>note1</li>
+    <li>note2</li>
+    <li>note3</li>
+    <li>note4</li>
+    <li>note5</li>
+  </ul>
+  <!-- 
+    // on 执行事件委托时只有子元素会触发事件，
+    // 而代为执行的父元素不会触发事件
+
+    // bind 和原生 js 一样，当父元素代子元素执行事件时，
+    // 父元素也会触发事件，所以需要判断一下
+   -->
+   
+  <script>
+    // js 处理
+    var list1 = document.getElementById('list1');
+    list1.addEventListener('click', function(e) {
+      var target = e.target;
+      if(target.nodeName == 'LI') {
+        target.style.background = "red";
+      }
+    });
+
+    // jquery on 
+    $(function() {
+      $('#list2').on('click', 'li', function(e) {
+        var target = $(e.target);
+        target.css('background', 'red');
+      });
+    });
+
+    // jquery bind
+    $(function() {
+      $('#list4').bind('click', 'li', function(e) {
+        var target = $(e.target);
+        if(target.prop('nodeName') == 'LI') {
+          target.css('background', 'red');
+        }
+      }); 
+    });
+  </script>
+</body>
+</html>
