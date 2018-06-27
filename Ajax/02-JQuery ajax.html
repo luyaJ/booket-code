@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JQuery ajax请求 github用户接口</title>
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<style>
+  .user {
+    display: flex;
+    background: #ccc;
+    margin: 10px;
+    padding: 5px;
+  }
+</style>
+<body>
+  <button id="button">jquery 请求github接口</button>
+  <div id="users"></div>
+
+  <script>
+    function requestApi() {
+      var users = document.getElementById('users');
+      $.ajax({
+        type: 'GET',
+        url: 'https://api.github.com/users',
+        async: false,
+        success: function(data) {
+          console.log('success...');
+          var html = '';
+          for(var i in data) {
+            html += `
+              <div>
+                <ul>
+                  <li>${data[i].id}</li>
+                  <li>${data[i].login}</li>
+                </ul>
+              </div>
+            `;
+          }
+          users.innerHTML = html;
+        },
+        error: function(err) {
+          console.log('error');
+        }
+      })
+    }
+
+    var button = document.querySelector('#button');
+    button.addEventListener('click', requestApi);
+  </script>
+</body>
+</html>
